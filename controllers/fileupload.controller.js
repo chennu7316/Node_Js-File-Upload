@@ -17,3 +17,49 @@ exports.singleFileUpload=async(req,res,next)=>{
         res.status(400).send({status:false,message:error.message})
      }
 }
+exports.addItem=async(req,res,next)=>{
+    try{
+        const data=await fileUploadService.addData(req.body)
+        res.send({
+            status:true,
+            message: "data is added"
+        })
+
+    }catch(error){
+        res.status(400).send({status:false,message:error.message})
+
+    }
+}
+exports.getItems=async(req,res,next)=>{
+    try{
+        const data=await fileUploadService.getItems()
+        res.send({
+            status:true,
+            message: "gets all data",
+            data:data
+        })
+
+    }catch(error){
+        res.status(400).send({status:false,message:error.message})
+
+    }
+}
+
+exports.getItem=async(req,res,next)=>{
+    try{
+        const id=req.params.id
+        if(!id){
+            throw new Error("id should be required")
+        }
+        const data=await fileUploadService.getItem(id)
+        res.send({
+            status:true,
+            message: "gets all data",
+            data:data
+        })
+
+    }catch(error){
+        res.status(400).send({status:false,message:error.message})
+
+    }
+}
